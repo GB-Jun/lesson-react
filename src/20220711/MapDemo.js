@@ -1,5 +1,5 @@
-import React from 'react';
-import { data } from './data/student';
+import React from "react";
+import { data } from "./data/student";
 
 export default function MapDemo() {
   return (

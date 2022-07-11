@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const objArray = [
   {
     id: 1,
-    text: 'a',
+    text: "a",
   },
   {
     id: 2,
-    text: 'b',
+    text: "b",
   },
   {
     id: 3,
-    text: 'c',
+    text: "c",
   },
   {
     id: 4,
-    text: 'aa',
+    text: "aa",
   },
 ];
 
@@ -27,20 +27,22 @@ function Arraypratice() {
       <h1>物件陣列的各種操作</h1>
       <p>呈現資料</p>
       <table border="1">
-        {data.map((v, i) => {
-          return (
-            <tr key={v.id}>
-              <td>{v.id}</td>
-              <td>{v.text}</td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {data.map((v, i) => {
+            return (
+              <tr key={v.id}>
+                <td>{v.id}</td>
+                <td>{v.text}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
       <hr />
       <button
         onClick={() => {
           // 先寫出要新增的物件值
-          const newObj = { id: 99, text: 'xxx' };
+          const newObj = { id: 99, text: "xxx" };
 
           // 1. 從目前的狀態拷貝出一個新的變數值(陣列/物件)
           // 2. 在新的變數值(陣列/物件)上作處理
@@ -58,7 +60,7 @@ function Arraypratice() {
       <br />
       <button
         onClick={() => {
-          const newObj = { id: 88, text: 'yyy' };
+          const newObj = { id: 88, text: "yyy" };
 
           //1 //2
           const newData = [...data, newObj];
@@ -72,10 +74,8 @@ function Arraypratice() {
       <br />
       <button
         onClick={() => {
-          const newData = data.filter(function (v) {
-            console.log(v.text.indexOf('a'));
-            return v.text.indexOf('a') >= 0;
-          });
+          const newData = data.filter((v, i) => v.text.includes("a"));
+
           setData(newData);
         }}
       >
@@ -84,10 +84,8 @@ function Arraypratice() {
       <br />
       <button
         onClick={() => {
-          const newData = data.filter(function (v) {
-            console.log(v.text.indexOf('a'));
-            return v.text.indexOf('b') < 0;
-          });
+          const newData = data.filter((v, i) => v.text !== "b");
+
           setData(newData);
         }}
       >
@@ -96,10 +94,8 @@ function Arraypratice() {
       <br />
       <button
         onClick={() => {
-          const newData = data.filter(function (v) {
-            console.log(v.id);
-            return v.id !== 99;
-          });
+          const newData = data.filter((v, i) => v.id !== 99);
+
           setData(newData);
         }}
       >
@@ -108,22 +104,92 @@ function Arraypratice() {
       <br />
       <button
         onClick={() => {
-          const newData = [...data];
-          const back = newData.splice(2);
-          newData.push({ id: 5, text: 'bbb' });
-          setData(newData);
+          const newObj = { id: 5, text: "bbb" };
+
+          // 尋找id=2的物件的索引值為何
+          const index = data.findIndex((v, i) => v.id === 2);
+
+          // 有找到時(index !== -1)，要插入新物件在它後面
+          if (index > -1) {
+            // 先切割分為兩子陣列
+            const aArray = data.slice(0, index + 1);
+            const bArray = data.slice(index + 1);
+
+            // 合併，把要插入的物件放入
+            const newData = [...aArray, newObj, ...bArray];
+
+            // 設定回原狀態
+            setData(newData);
+          }
         }}
       >
         在id為2後面插入id為5與文字為bbb的物件
       </button>
       <br />
-      <button onClick={() => {}}>取代id為3的文字為cccc</button>
+      <button
+        onClick={() => {
+          // 尋找id=3的物件的索引值為何
+          const index = data.findIndex((v, i) => v.id === 3);
+
+          // 有找到時(index !== -1)
+          if (index > -1) {
+            // 1. 從目前的狀態拷貝出一個新的變數值(陣列/物件)
+            // 注意要深拷貝(deep clone)
+            // 參考: https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
+            const newData = data.map((v) => {
+              return { ...v };
+            });
+            // 另一種方式
+            //const newData = JSON.parse(JSON.stringify(data))
+
+            // 2. 在新的變數值(陣列/物件)上作處理
+            newData[index].text = "cccc";
+            // 3. 設定回原本的狀態中
+            setData(newData);
+          }
+        }}
+      >
+        取代id為3的文字為cccc
+      </button>
       <br />
-      <button onClick={() => {}}>
+      <button
+        onClick={() => {
+          // 先寫出要新增的物件值
+          // 方法1.用外部的函式庫nanoid產生id
+          // const newObj = { id: nanoid(), text: 'xxx' }
+
+          // 方法2. 從所有的id值中找出最大值，然後遞增
+          // (註:只有id為數字才能這樣作)
+          const ids = data.map((v) => v.id);
+          // 找出id中的最大值增加 1 ，作為新的id值
+          const newId = Math.max(...ids) + 1;
+          const newObj = { id: newId, text: "xxx" };
+
+          //1 //2
+          const newData = [newObj, ...data];
+
+          //3
+          setData(newData);
+        }}
+      >
         陣列最前面新增一個物件值id不重覆與文字為xxx的物件
       </button>
       <br />
-      <button onClick={() => {}}>
+      <button
+        onClick={() => {
+          // 方法2. 拉出所有的id值
+          const ids = data.map((v) => v.id);
+          // 利用所有id裡數字最大值增加1來產生新的id值
+          const newId = Math.max(...ids) + 1;
+          const newObj = { id: newId, text: "yyy" };
+
+          //1 //2
+          const newData = [...data, newObj];
+
+          //3
+          setData(newData);
+        }}
+      >
         陣列最後面新增一個物件值id不重覆與文字為yyy的物件
       </button>
     </>

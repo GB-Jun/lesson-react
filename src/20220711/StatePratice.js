@@ -1,47 +1,29 @@
-import React, { useState } from 'react';
-import './menu.css';
+import { useState } from "react";
+import "./menu.css";
 
 function StatePratice() {
-  const [CssClass, setCssClass] = useState('');
+  // 目前的所有的選單項目
+  const menuItems = ["首頁", "關於我們", "產品"];
+  // -1代表一開始沒有被按的項目
+  const [activeIndex, setActiveIndex] = useState(-1);
+
   return (
-    <>
-      <ul>
-        <li>
-          <a
-            href="#/"
-            className={CssClass}
-            onClick={(e) => {
-              setCssClass('active');
+    <ul>
+      {menuItems.map((v, i) => {
+        return (
+          <li
+            key={i}
+            onClick={() => {
+              setActiveIndex(i);
             }}
           >
-            首頁
-          </a>
-        </li>
-        <li>
-          <a
-            href="#/"
-            className={CssClass}
-            onClick={(e) => {
-              console.log(e);
-              setCssClass('active');
-            }}
-          >
-            關於我們
-          </a>
-        </li>
-        <li>
-          <a
-            href="#/"
-            className={CssClass}
-            onClick={(e) => {
-              setCssClass('active');
-            }}
-          >
-            產品
-          </a>
-        </li>
-      </ul>
-    </>
+            <a href="#/" className={activeIndex === i ? "active" : ""}>
+              {v}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

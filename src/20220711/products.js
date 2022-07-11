@@ -1,6 +1,6 @@
-import React from 'react';
-import products from './data/products.json';
-import './MapDemo.css';
+import React from "react";
+import products from "./data/products.json";
+import "./MapDemo.css";
 
 function ProductsFunc() {
   return (
