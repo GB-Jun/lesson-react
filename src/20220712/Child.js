@@ -1,5 +1,7 @@
-function Chlid(props) {
-  const { text, abc, isBook, foo } = props;
+import PropTypes from "prop-types";
+
+function Child(props) {
+  const { text, abc, isBook = false, foo = () => alert("no") } = props;
   console.log(props);
   return (
     <>
@@ -10,4 +12,14 @@ function Chlid(props) {
   );
 }
 
-export default Chlid;
+Child.propTypes = {
+  text: PropTypes.string.isRequired,
+  abc: PropTypes.number.isRequired,
+};
+
+Child.Child.defaultProps = {
+  text: "沒給文字",
+  abc: 0,
+};
+
+export default Child;

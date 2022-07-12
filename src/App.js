@@ -1,7 +1,9 @@
-import Parent from "./20220712/Parent";
+// import Parent from "./20220712/Parent";
+import ParentInteract from "./20220712/ParentInteract";
 
 function App() {
-  return <Parent />;
+  return <ParentInteract />;
+  // <Parent />;
 }
 
 export default App;
