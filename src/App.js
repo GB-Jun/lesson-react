@@ -1,10 +1,13 @@
-import OrderPageCH from "./20220713/OrderPageCH";
+// import OrderPageCH from "./20220713/OrderPageCH";
 // import OrderPage from "./20220713/OrderPage";
+
+import Controlled from "./20220713/Controlled";
 
 function App() {
   return (
     <>
-      <OrderPageCH />
+      <Controlled />
+      {/* <OrderPageCH /> */}
       {/* <OrderPage /> */}
     </>
   );
