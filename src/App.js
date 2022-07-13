@@ -1,12 +1,24 @@
-// import Parent from "./20220712/Parent";
-import ParentInteract from "./20220712/ParentInteract";
+import OrderPageCH from "./20220713/OrderPageCH";
+// import OrderPage from "./20220713/OrderPage";
 
 function App() {
-  return <ParentInteract />;
-  // <Parent />;
+  return (
+    <>
+      <OrderPageCH />
+      {/* <OrderPage /> */}
+    </>
+  );
 }
 
 export default App;
+
+//----------------------------------------------------------
+// 20220712
+//----------------------------------------------------------
+// import Parent from "./20220712/Parent";
+// import ParentInteract from "./20220712/ParentInteract";
+// <Parent />;
+// return <ParentInteract />;
 
 //----------------------------------------------------------
 // 20220711
