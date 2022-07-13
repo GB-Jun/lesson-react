@@ -6,24 +6,34 @@ import { useState } from "react";
 
 import { products } from "./data/products";
 
+// const initState = (productArray) => {
+//   const state = [];
+
+//   for (let i = 0; i < productArray.length; i++) {
+//     state.push(1);
+//   }
+
+//   return state;
+// };
+
 const initState = (productArray) => {
   const state = [];
 
   for (let i = 0; i < productArray.length; i++) {
-    state.push(1);
+    state.push({ ...productArray[i], count: 1 });
   }
 
   return state;
 };
 
 function OrderpageCH() {
-  const [counts, setCounts] = useState(initState(products));
+  const [productsInOrder, setProductsInOrder] = useState(initState(products));
 
   const calcTotalNumber = () => {
     let total = 0;
 
-    for (let i = 0; i < products.length; i++) {
-      total += counts[i];
+    for (let i = 0; i < productsInOrder.length; i++) {
+      total += productsInOrder[i].count;
     }
 
     return total;
@@ -32,8 +42,8 @@ function OrderpageCH() {
   const calcTotalPrice = () => {
     let total = 0;
 
-    for (let i = 0; i < products.length; i++) {
-      total += counts[i] * products[i].price;
+    for (let i = 0; i < productsInOrder.length; i++) {
+      total += productsInOrder[i].count * productsInOrder[i].price;
     }
 
     return total;
@@ -42,7 +52,10 @@ function OrderpageCH() {
   return (
     <div className="card">
       <div className="row">
-        <OrderList counts={counts} setCounts={setCounts} />
+        <OrderList
+          productsInOrder={productsInOrder}
+          setProductsInOrder={setProductsInOrder}
+        />
         <Summary
           totalNumber={calcTotalNumber()}
           totalPrice={calcTotalPrice()}

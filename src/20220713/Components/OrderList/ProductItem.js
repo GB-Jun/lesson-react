@@ -7,7 +7,8 @@ function ProductItem(props) {
   //     image: "https://i.imgur.com/1GrakTl.jpg"
   //     price: 300,
   // }
-  const { id, name, category, image, price, count, setCount } = props;
+  const { id, name, category, image, price, count, setCount, removeItem } =
+    props;
 
   return (
     <>
@@ -42,7 +43,10 @@ function ProductItem(props) {
             </a>
           </div>
           <div className="col">
-            ${price} <span className="close">&#10005;</span>
+            ${price}{" "}
+            <span className="close" onClick={removeItem}>
+              &#10005;
+            </span>
           </div>
         </div>
       </div>
