@@ -1,11 +1,11 @@
-// import AgeCheck from "./20220714/AgeCheck";
-import Controlled from "./20220714/Controlled";
+import AgeCheck from "./20220714/AgeCheck";
+// import Controlled from "./20220714/Controlled";
 
 function App() {
   return (
     <>
-      {/* <AgeCheck /> */}
-      <Controlled />
+      <AgeCheck />
+      {/* <Controlled /> */}
     </>
   );
 }
