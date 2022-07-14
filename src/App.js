@@ -1,20 +1,26 @@
-// import OrderPageCH from "./20220713/OrderPageCH";
-// import OrderPage from "./20220713/OrderPage";
-
-import Controlled from "./20220713/Controlled";
+// import AgeCheck from "./20220714/AgeCheck";
+import Controlled from "./20220714/Controlled";
 
 function App() {
   return (
     <>
+      {/* <AgeCheck /> */}
       <Controlled />
-      {/* <OrderPageCH /> */}
-      {/* <OrderPage /> */}
     </>
   );
 }
 
 export default App;
 
+//----------------------------------------------------------
+// 20220713
+//----------------------------------------------------------
+// import OrderPageCH from "./20220713/OrderPageCH";
+// import OrderPage from "./20220713/OrderPage";
+// import Controlled from "./20220713/Controlled";
+// <Controlled />
+// <OrderPageCH />
+// <OrderPage />
 //----------------------------------------------------------
 // 20220712
 //----------------------------------------------------------
