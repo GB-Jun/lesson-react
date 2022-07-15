@@ -1,17 +1,22 @@
-import AgeCheck from "./20220714/AgeCheck";
-// import Controlled from "./20220714/Controlled";
+import TWZipCode from "./20220715/TWZipCode";
 
 function App() {
   return (
     <>
-      <AgeCheck />
-      {/* <Controlled /> */}
+      <TWZipCode />
     </>
   );
 }
 
 export default App;
 
+//----------------------------------------------------------
+// 20220714
+//----------------------------------------------------------
+// import AgeCheck from "./20220714/AgeCheck";
+// import Controlled from "./20220714/Controlled";
+// <AgeCheck />
+// <Controlled />
 //----------------------------------------------------------
 // 20220713
 //----------------------------------------------------------
