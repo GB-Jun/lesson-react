@@ -1,9 +1,18 @@
-import TWZipCode from "./20220715/TWZipCode";
+// import TWZipCode from "./20220715/TWZipCode";
+
+import HTML5form from "./20220715/HTML5form";
+
+// import MultipleInput from "./20220715/MultipleInput";
+
+// import BMI from "./20220715/BMI";
 
 function App() {
   return (
     <>
-      <TWZipCode />
+      <HTML5form />
+      {/* <MultipleInput /> */}
+      {/* <BMI /> */}
+      {/* <TWZipCode /> */}
     </>
   );
 }
