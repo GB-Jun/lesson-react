@@ -1,6 +1,9 @@
 // import TWZipCode from "./20220715/TWZipCode";
 
-import HTML5form from "./20220715/HTML5form";
+import Idform from "./20220715/IdForm";
+import RefsForm from "./20220715/RefsForm";
+
+// import HTML5form from "./20220715/HTML5form";
 
 // import MultipleInput from "./20220715/MultipleInput";
 
@@ -9,7 +12,12 @@ import HTML5form from "./20220715/HTML5form";
 function App() {
   return (
     <>
-      <HTML5form />
+      <Idform />
+      <Idform />
+      <hr />
+      <RefsForm />
+      <RefsForm />
+      {/* <HTML5form /> */}
       {/* <MultipleInput /> */}
       {/* <BMI /> */}
       {/* <TWZipCode /> */}
