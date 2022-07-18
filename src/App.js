@@ -1,11 +1,14 @@
-// import FC from "./2020718/FC";
-// import CC from "./2020718/CC";
-import Parent from "./2020718/Parent";
+// import FC from "./20220718/FC";
+// import CC from "./20220718/CC";
+// import Parent from "./20220718/Parent";
+
+import User from "./20220718/User";
 
 function App() {
     return (
         <>
-            <Parent />
+            <User />
+            {/* <Parent /> */}
             {/* <CC />
             <FC /> */}
         </>
