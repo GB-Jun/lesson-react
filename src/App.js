@@ -1,35 +1,43 @@
-// import TWZipCode from "./20220715/TWZipCode";
-
-import Idform from "./20220715/IdForm";
-import RefsForm from "./20220715/RefsForm";
-
-// import HTML5form from "./20220715/HTML5form";
-
-// import MultipleInput from "./20220715/MultipleInput";
-
-// import BMI from "./20220715/BMI";
+// import FC from "./2020718/FC";
+// import CC from "./2020718/CC";
+import Parent from "./2020718/Parent";
 
 function App() {
-  return (
-    <>
-      <Idform />
-      <Idform />
-      <hr />
-      <RefsForm />
-      <RefsForm />
-      {/* <HTML5form /> */}
-      {/* <MultipleInput /> */}
-      {/* <BMI /> */}
-      {/* <TWZipCode /> */}
-    </>
-  );
+    return (
+        <>
+            <Parent />
+            {/* <CC />
+            <FC /> */}
+        </>
+    );
 }
 
 export default App;
 
 //----------------------------------------------------------
+// 20220718
+//----------------------------------------------------------
+// import TWZipCode from "./20220715/TWZipCode";
+// import Idform from "./20220715/IdForm";
+// import RefsForm from "./20220715/RefsForm";
+// import HTML5form from "./20220715/HTML5form";
+// import MultipleInput from "./20220715/MultipleInput";
+// import BMI from "./20220715/BMI";
+
+// <Idform />
+// <Idform />
+// <hr />
+// <RefsForm />
+// <RefsForm />
+// <HTML5form />
+// <MultipleInput />
+// <BMI />
+// <TWZipCode />
+
+//----------------------------------------------------------
 // 20220714
 //----------------------------------------------------------
+
 // import AgeCheck from "./20220714/AgeCheck";
 // import Controlled from "./20220714/Controlled";
 // <AgeCheck />
