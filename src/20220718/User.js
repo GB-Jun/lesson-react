@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./User.css";
+import "./User.scss";
 //import _ from 'lodash'
 
 // 要裝axios套件: `yarn add axios`
