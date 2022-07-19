@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import "./User.css";
+//import _ from 'lodash'
 
-// axios
+// 要裝axios套件: `yarn add axios`
 import axios from "axios";
 
 // User 物件
@@ -10,6 +11,13 @@ import axios from "axios";
 //     "name": "張佳蓉",
 //     "birth": "990101"
 //  },
+
+// chunk - 依size分成子陣列，ex. chunk([1, 2, 3, 4, 5], 2) -> [[1,2],[3,4],[5]]
+// https://stackoverflow.com/questions/8495687/split-array-into-chunks
+const chunk = (arr, size) =>
+    Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+        arr.slice(i * size, i * size + size)
+    );
 
 function User() {
     // 第一次紀錄伺服器的原始資料用
@@ -20,8 +28,16 @@ function User() {
     // const [users, setUsers] = useState([]);
     // 載入資料指示狀態
     const [isLoading, setIsLoading] = useState(false);
-
+    // 搜尋用
     const [searchWord, setSearchWord] = useState("");
+
+    // 分頁用
+    // pageNow 目前頁號
+    // perPage 每頁多少數量
+    // pageTotal 目前有多少頁
+    const [pageNow, setPageNow] = useState(1); // 預設第一頁
+    const [perPage, setPerPage] = useState(5); // 預設一頁5筆資料
+    const [pageTotal, setPageTotal] = useState(0); // 等伺服器抓完資料才知道多少(didMount時決定)
 
     const getUserData = async () => {
         const response = await axios.get(
@@ -31,7 +47,13 @@ function User() {
         // 設定到state
         // setUsers(response.data);
         setUsersRaw(response.data);
-        setUsersDisplay(response.data);
+
+        const pageArray = chunk(response.data, perPage);
+
+        if (pageArray.length > 0) {
+            setPageTotal(pageArray.length);
+            setUsersDisplay(pageArray);
+        }
     };
 
     //didMount 把拿到的資料放進去
@@ -45,12 +67,13 @@ function User() {
         if (isLoading) {
             setTimeout(() => {
                 setIsLoading(false);
-            }, 2000);
+            }, 1000);
         }
     }, [isLoading]);
 
     const spinner = (
         <>
+            <br />
             <div className="spinner-grow text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>
@@ -68,22 +91,62 @@ function User() {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>生日</th>
                     <th>姓名</th>
+                    <th>生日</th>
                 </tr>
             </thead>
             <tbody>
-                {usersDisplay.map((v, i) => {
-                    return (
-                        <tr key={v.id}>
-                            <td>{v.id}</td>
-                            <td>{v.name}</td>
-                            <td>{v.birth}</td>
-                        </tr>
-                    );
-                })}
+                {usersDisplay.length > 0 &&
+                    usersDisplay[pageNow - 1].map((v, i) => {
+                        return (
+                            <tr key={v.id}>
+                                <td>{v.id}</td>
+                                <td>{v.name}</td>
+                                <td>{v.birth}</td>
+                            </tr>
+                        );
+                    })}
             </tbody>
         </table>
+    );
+
+    const paginationBar = (
+        <>
+            <div className="pagination">
+                <a
+                    href="#/"
+                    onClick={() => {
+                        setPageNow(1);
+                    }}
+                >
+                    &laquo;
+                </a>
+                {Array(pageTotal)
+                    .fill(1)
+                    .map((v, i) => {
+                        return (
+                            <a
+                                key={i}
+                                href="#/"
+                                className={i + 1 === pageNow ? "active" : ""}
+                                onClick={() => {
+                                    setPageNow(i + 1);
+                                }}
+                            >
+                                {i + 1}
+                            </a>
+                        );
+                    })}
+                <a
+                    href="#/"
+                    onClick={() => {
+                        setPageNow(pageTotal);
+                    }}
+                >
+                    &raquo;
+                </a>
+            </div>
+        </>
     );
 
     return (
@@ -94,11 +157,41 @@ function User() {
                 placeholder="輸入姓名"
                 value={searchWord}
                 onChange={(e) => {
-                    setSearchWord(e.target.value);
+                    // setSearchWord(e.target.value);
+                    const newSearchWord = e.target.value;
+                    setSearchWord(newSearchWord);
+
+                    setIsLoading(true);
+
+                    if (newSearchWord) {
+                        const newUsersDisplay = usersRaw.filter((v, i) =>
+                            v.name.includes(newSearchWord)
+                        );
+
+                        const pageArray = chunk(newUsersDisplay, perPage);
+
+                        if (pageArray.length > 0) {
+                            setPageTotal(pageArray.length);
+                            setUsersDisplay(pageArray);
+                        }
+
+                        // setUsersDisplay(newUsersDisplay);
+                    } else {
+                        // reset
+                        // setUsersDisplay(usersRaw);
+
+                        const pageArray = chunk(usersRaw, perPage);
+
+                        if (pageArray.length > 0) {
+                            setPageTotal(pageArray.length);
+                            setUsersDisplay(pageArray);
+                        }
+                    }
                 }}
             />
             <button
                 onClick={() => {
+                    setIsLoading(true);
                     if (searchWord) {
                         const newUsersDisplay = usersRaw.filter((v, i) =>
                             v.name.includes(searchWord)
@@ -114,6 +207,9 @@ function User() {
                 搜尋
             </button>
             {isLoading ? spinner : displayTable}
+            <br />
+
+            {paginationBar}
         </>
     );
 }
